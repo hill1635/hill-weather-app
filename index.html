@@ -36,6 +36,12 @@
 
         $(document).ready(function () {
 
+            $(".city").text("City and (Date)");
+            $(".temp").text("Temperature: ");
+            $(".humidity").text("Humidity: ");
+            $(".windspeed").text("Wind Speed: ");
+            $(".uvindex").text("UV Index: ");
+
             //Call works when name manually entered.  Add ajax promise to on.click function.
             var APIkey = "1eb6efea297e5d431edfcba1d2b83d6d";
             var currentWeather = "";
@@ -56,20 +62,42 @@
                 currentWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey;
                 fiveDayWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + APIkey;
 
-                updateCurrent();
-                updateFiveDay();
+                retrieveCurrent();
+                retrieveFiveDay();
             });
 
-            function updateCurrent() {
+            function retrieveCurrent() {
                 $.ajax({
                     url: currentWeather,
                     method: "GET"
                 })
                     .then(function (response) {
                         console.log(response);
+                        city = response.name;
+                        temp = Math.round((response.main.temp) * 9 / 5 - 459.67);
+                        humidity = response.main.humidity;
+                        windspeed = response.wind.speed;
+                        console.log(temp);
+                        updateCurrent();
                     });
             }
-            function updateFiveDay() {
+
+            var city = "";
+            var date = "";
+            var temp = "";
+            var humidity = "";
+            var windspeed = "";
+            var uvindex = "";
+
+            function updateCurrent() {
+                $(".city").text(city + " (Date)");
+                $(".temp").text("Temperature: " + temp);
+                $(".humidity").text("Humidity: " + humidity);
+                $(".windspeed").text("Wind Speed: " + windspeed);
+                $(".uvindex").text("UV Index: " + uvindex);
+            }
+
+            function retrieveFiveDay() {
                 $.ajax({
                     url: fiveDayWeather,
                     method: "GET"
@@ -89,11 +117,6 @@
                 $(".cities").append(listEl);
             }
 
-            $(".city").text("City and (Date)");
-            $(".temp").text("Temperature: ");
-            $(".humidity").text("Humidity: ");
-            $(".windspeed").text("Wind Speed: ");
-            $(".uvindex").text("UV Index: ");
         });
     </script>
 </body>
