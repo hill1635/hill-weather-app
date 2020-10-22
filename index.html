@@ -51,16 +51,13 @@
             var search = $(".searchBtn");
             //Button that stores search in Local Storage.
             $(search).on("click", function () {
-                localStorage.clear();
 
                 var parent = $(this).parent();
                 var searchInput = $(parent).children().eq(0);
                 var searchCity = $(searchInput).val();
 
-                localStorage.setItem("cityname", JSON.stringify(searchCity));
-                cityName = JSON.parse(localStorage.getItem("cityname"));
-                currentWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey;
-                fiveDayWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + APIkey;
+                currentWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIkey;
+                fiveDayWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&appid=" + APIkey;
 
                 retrieveCurrent();
                 retrieveFiveDay();
@@ -107,7 +104,10 @@
                     });
             }
 
-            //Lists cities in aside, needs links eventually
+            //Need AJAX function to retrieve UV index.
+
+            //Lists cities in aside, needs links eventually.
+            //Need onclick event to update currentWeather and fiveDayWeather variables.
             var cities = ["Boston", "New York City", "Miami", "Austin", "Los Angeles", "San Francisco", "Seattle", "Salt Lake City"];
             for (var i = 0; i < cities.length; i++) {
                 var city = cities[i];
@@ -115,6 +115,14 @@
                 $(listEl).text(city);
                 console.log(listEl.text());
                 $(".cities").append(listEl);
+
+                $(listEl).on("click", function () {
+                currentWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + $(this).text() + "&appid=" + APIkey;
+                fiveDayWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + $(this).text() + "&appid=" + APIkey;
+
+                retrieveCurrent();
+                retrieveFiveDay();
+            });
             }
 
         });
