@@ -32,6 +32,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -49,6 +50,15 @@
             var cityName = "";
 
             var search = $(".searchBtn");
+
+            var city = "";
+            var date = moment().format('L');
+            var temp = "";
+            var humidity = "";
+            var windspeed = "";
+            var uvindex = "";
+
+
             //Button that stores search in Local Storage.
             $(search).on("click", function () {
 
@@ -79,15 +89,8 @@
                     });
             }
 
-            var city = "";
-            var date = "";
-            var temp = "";
-            var humidity = "";
-            var windspeed = "";
-            var uvindex = "";
-
             function updateCurrent() {
-                $(".city").text(city + " (Date)");
+                $(".city").text(city + " " + date);
                 $(".temp").text("Temperature: " + temp);
                 $(".humidity").text("Humidity: " + humidity);
                 $(".windspeed").text("Wind Speed: " + windspeed);
@@ -117,12 +120,12 @@
                 $(".cities").append(listEl);
 
                 $(listEl).on("click", function () {
-                currentWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + $(this).text() + "&appid=" + APIkey;
-                fiveDayWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + $(this).text() + "&appid=" + APIkey;
+                    currentWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + $(this).text() + "&appid=" + APIkey;
+                    fiveDayWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + $(this).text() + "&appid=" + APIkey;
 
-                retrieveCurrent();
-                retrieveFiveDay();
-            });
+                    retrieveCurrent();
+                    retrieveFiveDay();
+                });
             }
 
         });
