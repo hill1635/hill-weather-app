@@ -4,33 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
     <title>Weather App</title>
 </head>
 
 <body>
-    <header>
-        <h1>Weather Dashboard</h1>
-    </header>
-    <aside>
-        <input type="text">
-        <button class="searchBtn">Search</button>
-        <ul class="parks"></ul>
-    </aside>
-    <main class="current-weather">
-        <h2 class="city">
-            </h1>
-            <p class="temp">City and date go here</p>
+    <div class="container">
+        <header>
+            <h1>Weather Dashboard</h1>
+        </header>
+        <aside>
+            <input type="text">
+            <button class="searchBtn">Search</button>
+            <p>Where would you rather be right now?</p>
+            <ul class="cities"></ul>
+        </aside>
+        <main class="current-weather">
+            <h2 class="city"></h2>
+            <p class="temp"></p>
             <p class="humidity"></p>
             <p class="windspeed"></p>
             <p class="uvindex"></p>
-    </main>
-    <div class="forecast">
-        <h3>5-Day Forecast:</h3>
+        </main>
+        <div class="forecast">
+            <h3>5-Day Forecast:</h3>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
 
+
+
+        $(document).ready(function () {
+            localStorage.clear();
+
+            var search = $(".searchBtn");
+            //Button that stores search in Local Storage.
+            $(search).on("click", function () {
+                var parent = $(this).parent();
+                var searchInput = $(parent).children().eq(0);
+                var searchCity = $(searchInput).val();
+                localStorage.setItem("cityname", JSON.stringify(searchCity));
+                console.log(localStorage);
+                var cityName = JSON.parse(localStorage.getItem("cityname"));
+                console.log(cityName);
+            });
+
+            //Call works when name manually entered.  Add ajax promise to on.click function.
+            var APIkey = "1eb6efea297e5d431edfcba1d2b83d6d";
+            //City name not in curly brackets to work.
+            var currentWeather = "api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey;
+            var fiveDayWeather = "api.openweathermap.org/data/2.5/forecast?q={city name}&appid=" + APIkey;
+
+            // $.ajax({
+            //     url: currentWeather,
+            //     method: "GET"
+            // })
+            //     .then(function (response) {
+            //         console.log(response);
+            //     });
+
+            //Lists parks in aside, needs links eventually
+            var parks = ["Boston", "New York City", "Miami", "Austin", "Los Angeles", "San Francisco", "Seattle", "Salt Lake City"];
+            for (var i = 0; i < parks.length; i++) {
+                var park = parks[i];
+                var listEl = $("<li>");
+                $(listEl).text(park);
+                console.log(listEl.text());
+                $(".cities").append(listEl);
+            }
+
+            $(".city").text("City and (Date)");
+            $(".temp").text("Temperature: ");
+            $(".humidity").text("Humidity: ");
+            $(".windspeed").text("Wind Speed: ");
+            $(".uvindex").text("UV Index: ");
+        });
     </script>
 </body>
 

@@ -1,0 +1,37 @@
+.container {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 24px;
+}
+
+header {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 1px;
+}
+
+aside {
+    width: 30%;
+    margin-right: 20px;
+    border: solid;
+}
+
+main {
+    width: 60%;
+    margin: 10px;
+    border: solid;
+}
+
+.forecast {
+    width: 60%;
+    border: solid;
+}
+
+ul {
+    list-style: none;
+    padding: 2px;
+}
+
+li {
+    padding: 10px;
+}
