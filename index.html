@@ -34,43 +34,57 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
 
-
-
         $(document).ready(function () {
-            localStorage.clear();
+
+            //Call works when name manually entered.  Add ajax promise to on.click function.
+            var APIkey = "1eb6efea297e5d431edfcba1d2b83d6d";
+            var currentWeather = "";
+            var fiveDayWeather = "";
+            var cityName = "";
 
             var search = $(".searchBtn");
             //Button that stores search in Local Storage.
             $(search).on("click", function () {
+                localStorage.clear();
+
                 var parent = $(this).parent();
                 var searchInput = $(parent).children().eq(0);
                 var searchCity = $(searchInput).val();
+
                 localStorage.setItem("cityname", JSON.stringify(searchCity));
-                console.log(localStorage);
-                var cityName = JSON.parse(localStorage.getItem("cityname"));
-                console.log(cityName);
+                cityName = JSON.parse(localStorage.getItem("cityname"));
+                currentWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey;
+                fiveDayWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + APIkey;
+
+                updateCurrent();
+                updateFiveDay();
             });
 
-            //Call works when name manually entered.  Add ajax promise to on.click function.
-            var APIkey = "1eb6efea297e5d431edfcba1d2b83d6d";
-            //City name not in curly brackets to work.
-            var currentWeather = "api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey;
-            var fiveDayWeather = "api.openweathermap.org/data/2.5/forecast?q={city name}&appid=" + APIkey;
+            function updateCurrent() {
+                $.ajax({
+                    url: currentWeather,
+                    method: "GET"
+                })
+                    .then(function (response) {
+                        console.log(response);
+                    });
+            }
+            function updateFiveDay() {
+                $.ajax({
+                    url: fiveDayWeather,
+                    method: "GET"
+                })
+                    .then(function (response) {
+                        console.log(response);
+                    });
+            }
 
-            // $.ajax({
-            //     url: currentWeather,
-            //     method: "GET"
-            // })
-            //     .then(function (response) {
-            //         console.log(response);
-            //     });
-
-            //Lists parks in aside, needs links eventually
-            var parks = ["Boston", "New York City", "Miami", "Austin", "Los Angeles", "San Francisco", "Seattle", "Salt Lake City"];
-            for (var i = 0; i < parks.length; i++) {
-                var park = parks[i];
+            //Lists cities in aside, needs links eventually
+            var cities = ["Boston", "New York City", "Miami", "Austin", "Los Angeles", "San Francisco", "Seattle", "Salt Lake City"];
+            for (var i = 0; i < cities.length; i++) {
+                var city = cities[i];
                 var listEl = $("<li>");
-                $(listEl).text(park);
+                $(listEl).text(city);
                 console.log(listEl.text());
                 $(".cities").append(listEl);
             }
