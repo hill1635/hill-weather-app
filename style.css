@@ -27,6 +27,12 @@ main {
     border: solid;
 }
 
+.fiveDay {
+    width: 200px;
+    display: inline;
+    margin: 10px;
+}
+
 ul {
     list-style: none;
     padding: 2px;

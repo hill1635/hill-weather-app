@@ -45,14 +45,19 @@
 
             //Call works when name manually entered.  Add ajax promise to on.click function.
             var APIkey = "1eb6efea297e5d431edfcba1d2b83d6d";
-            var currentWeather = "";
-            var fiveDayWeather = "";
+            var coordinates = "";
+            var weather = "";
             var cityName = "";
 
             var search = $(".searchBtn");
 
             var city = "";
+            var lat = "";
+            var long = "";
             var date = moment().format('L');
+            // //Use this below in for loop to produce five day forecast.
+            // var tomorrow = moment().add(1, 'days').format('L');
+            // console.log("Tomorrow: " + tomorrow);
             var temp = "";
             var humidity = "";
             var windspeed = "";
@@ -66,26 +71,25 @@
                 var searchInput = $(parent).children().eq(0);
                 var searchCity = $(searchInput).val();
 
-                currentWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIkey;
-                fiveDayWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&appid=" + APIkey;
+                coordinates = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIkey;
 
-                retrieveCurrent();
-                retrieveFiveDay();
+                retrieveCoordinates();
             });
 
-            function retrieveCurrent() {
+            function retrieveCoordinates() {
                 $.ajax({
-                    url: currentWeather,
+                    url: coordinates,
                     method: "GET"
                 })
                     .then(function (response) {
                         console.log(response);
-                        city = response.name;
-                        temp = Math.round((response.main.temp) * 9 / 5 - 459.67);
-                        humidity = response.main.humidity;
-                        windspeed = response.wind.speed;
-                        console.log(temp);
-                        updateCurrent();
+                        lat = response.coord.lat;
+                        long = response.coord.lon;
+                        weather = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&exclude=minutely,hourly,alerts&appid=" + APIkey;
+                        console.log(weather);
+                        retrieveWeather();
+                        // console.log(lat);
+                        // console.log(long);
                     });
             }
 
@@ -97,20 +101,36 @@
                 $(".uvindex").text("UV Index: " + uvindex);
             }
 
-            function retrieveFiveDay() {
+            function retrieveWeather() {
                 $.ajax({
-                    url: fiveDayWeather,
+                    url: weather,
                     method: "GET"
                 })
                     .then(function (response) {
                         console.log(response);
+                        // console.log(response[0]);
+                        // temp = Math.round((response.main.temp) * 9 / 5 - 459.67);
+                        // renderFiveDay();
+                        // updateCurrent();
                     });
+            }
+
+            function renderFiveDay() {
+                for (var i = 0; i < 5; i++) {
+                    var forecastDiv = $("<div>");
+                    $(forecastDiv).attr("class", "fiveDay");
+                    $(".forecast").append(forecastDiv);
+
+                    var forecastDate = $("<h4>");
+                    $(forecastDate).text();
+                    forecastDiv.text("5 Day Forecast");
+                }
             }
 
             //Need AJAX function to retrieve UV index.
 
             //Lists cities in aside, needs links eventually.
-            //Need onclick event to update currentWeather and fiveDayWeather variables.
+            //Need onclick event to update currentWeather and weather variables.
             var cities = ["Boston", "New York City", "Miami", "Austin", "Los Angeles", "San Francisco", "Seattle", "Salt Lake City"];
             for (var i = 0; i < cities.length; i++) {
                 var city = cities[i];
@@ -119,13 +139,13 @@
                 console.log(listEl.text());
                 $(".cities").append(listEl);
 
-                $(listEl).on("click", function () {
-                    currentWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + $(this).text() + "&appid=" + APIkey;
-                    fiveDayWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + $(this).text() + "&appid=" + APIkey;
+                // $(listEl).on("click", function () {
+                //     coordinates = "https://api.openweathermap.org/data/2.5/weather?q=" + $(this).text() + "&appid=" + APIkey;
+                //     weather = "https://api.openweathermap.org/data/2.5/forecast?q=" + $(this).text() + "&appid=" + APIkey;
 
-                    retrieveCurrent();
-                    retrieveFiveDay();
-                });
+                //     retrieveCoordinates();
+                //     retrieveWeather();
+                // });
             }
 
         });
