@@ -62,6 +62,7 @@
             var humidity = "";
             var windspeed = "";
             var uvindex = "";
+            var forecast = [];
 
 
             //Button that stores search in Local Storage.
@@ -113,27 +114,37 @@
                         humidity = response.current.humidity;
                         windspeed = response.current.wind_speed;
                         uvindex = response.current.uvi;
-                        // renderFiveDay();
+                        forecast = response.daily;
+                        console.log(forecast);
+                        $(".forecast").empty();
+                        renderFiveDay();
                         updateCurrent();
                     });
             }
 
             function renderFiveDay() {
                 for (var i = 0; i < 5; i++) {
+//Keeps adding five day forecasts to existing forecast when clicking.
                     var forecastDiv = $("<div>");
                     $(forecastDiv).attr("class", "fiveDay");
                     $(".forecast").append(forecastDiv);
 
                     var forecastDate = $("<h4>");
-                    $(forecastDate).text();
-                    forecastDiv.text("5 Day Forecast");
+                    //For some reason starts Nov 1st
+                    $(forecastDate).text(moment().add(1 + [i], 'days').format('L'));
+                    forecastDiv.append(forecastDate);
+
+                    var forecastTemp = $("<p>");
+                        var dailyInfo = forecast[i];
+                        forecastTemp.text("Temperature: " + Math.round(dailyInfo.temp.day * 9 / 5 - 459.67));
+                        forecastDiv.append(forecastTemp);
+                        var forecastHumid = $("<p>");
+                        forecastHumid.text("Humidity: " + dailyInfo.humidity);
+                        forecastDiv.append(forecastHumid);
                 }
             }
 
-            //Need AJAX function to retrieve UV index.
-
-            //Lists cities in aside, needs links eventually.
-            //Need onclick event to update currentWeather and weather variables.
+            //Cities list with onclick events
             var cities = ["Boston", "New York City", "Miami", "Austin", "Los Angeles", "San Francisco", "Seattle", "Salt Lake City"];
             for (var i = 0; i < cities.length; i++) {
                 var city = cities[i];
