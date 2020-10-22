@@ -85,6 +85,7 @@
                         console.log(response);
                         lat = response.coord.lat;
                         long = response.coord.lon;
+                        city = response.name;
                         weather = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&exclude=minutely,hourly,alerts&appid=" + APIkey;
                         console.log(weather);
                         retrieveWeather();
@@ -108,10 +109,12 @@
                 })
                     .then(function (response) {
                         console.log(response);
-                        // console.log(response[0]);
-                        // temp = Math.round((response.main.temp) * 9 / 5 - 459.67);
+                        temp = Math.round((response.current.temp) * 9 / 5 - 459.67);
+                        humidity = response.current.humidity;
+                        windspeed = response.current.wind_speed;
+                        uvindex = response.current.uvi;
                         // renderFiveDay();
-                        // updateCurrent();
+                        updateCurrent();
                     });
             }
 
@@ -139,13 +142,10 @@
                 console.log(listEl.text());
                 $(".cities").append(listEl);
 
-                // $(listEl).on("click", function () {
-                //     coordinates = "https://api.openweathermap.org/data/2.5/weather?q=" + $(this).text() + "&appid=" + APIkey;
-                //     weather = "https://api.openweathermap.org/data/2.5/forecast?q=" + $(this).text() + "&appid=" + APIkey;
-
-                //     retrieveCoordinates();
-                //     retrieveWeather();
-                // });
+                $(listEl).on("click", function () {
+                    coordinates = "https://api.openweathermap.org/data/2.5/weather?q=" + $(this).text() + "&appid=" + APIkey;
+                    retrieveCoordinates();
+                });
             }
 
         });
