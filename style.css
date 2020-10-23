@@ -10,15 +10,22 @@ header {
     padding: 1px;
 }
 
+.row {
+}
+
 aside {
+    float: left;
     width: 30%;
+    height: 100%;
+    position: relative;
     margin-right: 20px;
+    margin-top: 10px;
     border: solid;
     display: inline-block;
 }
 
 main {
-    width: 60%;
+    width: 66%;
     margin: 10px;
     border: solid;
     display: inline-block;
@@ -26,14 +33,14 @@ main {
 
 .forecast {
     border: solid;
+    font-size: 20px;
 }
 
 .fiveDay {
-    width: 200px;
+    width: 100px;
     display: inline-block;
-    margin: 10px;
+    margin: 20px;
 }
-
 
 ul {
     list-style: none;
@@ -41,5 +48,7 @@ ul {
 }
 
 li {
-    padding: 10px;
+    padding: 15px;
+    border: solid;
+    border-color: gray;
 }

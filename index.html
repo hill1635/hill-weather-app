@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" />
-    <title>Weather App</title>
+    <title>How 'Bout That Weather?</title>
 </head>
 
 <body>
@@ -13,23 +13,25 @@
         <header>
             <h1>Weather Dashboard</h1>
         </header>
-        <aside>
-            <input type="text">
-            <button class="searchBtn">Search</button>
-            <p>Where would you rather be right now?</p>
-            <ul class="cities"></ul>
-        </aside>
-        <main class="dashboard">
-            <div class="current-weather">
-                <h2 class="city"></h2>
-                <p class="temp"></p>
-                <p class="humidity"></p>
-                <p class="windspeed"></p>
-                <p class="uvindex"></p>
-            </div>
-            <div class="forecast">
-            </div>
-        </main>
+        <div class="row">
+            <aside>
+                <input type="text">
+                <button class="searchBtn">Search</button>
+                <p>Where would you rather be right now?</p>
+                <ul class="cities"></ul>
+            </aside>
+            <main class="dashboard">
+                <div class="current-weather">
+                    <h2 class="city"></h2>
+                    <p class="temp"></p>
+                    <p class="humidity"></p>
+                    <p class="windspeed"></p>
+                    <p class="uvindex"></p>
+                </div>
+                <div class="forecast">
+                </div>
+            </main>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -38,41 +40,30 @@
 
         $(document).ready(function () {
 
-            $(".city").text("City and (Date)");
-            $(".temp").text("Temperature: ");
-            $(".humidity").text("Humidity: ");
-            $(".windspeed").text("Wind Speed: ");
-            $(".uvindex").text("UV Index: ");
-
-            //Call works when name manually entered.  Add ajax promise to on.click function.
             var APIkey = "1eb6efea297e5d431edfcba1d2b83d6d";
             var coordinates = "";
             var weather = "";
             var cityName = "";
 
+            function init() {
+                coordinates = "https://api.openweathermap.org/data/2.5/weather?q=Salt%20Lake%20City&appid=" + APIkey;
+                retrieveCoordinates();
+            }
+
+            init();
+
             var search = $(".searchBtn");
 
-            var city = "";
-            var lat = "";
-            var long = "";
-            var date = moment().format('L');
-            var temp = "";
-            var humidity = "";
-            var windspeed = "";
-            var uvindex = "";
-            var forecast = [];
-
-
             $(search).on("click", function () {
-
                 var parent = $(this).parent();
                 var searchInput = $(parent).children().eq(0);
                 var searchCity = $(searchInput).val();
-
                 coordinates = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIkey;
-
                 retrieveCoordinates();
             });
+
+            var lat = "";
+            var long = "";
 
             function retrieveCoordinates() {
                 $.ajax({
@@ -90,6 +81,13 @@
                     });
             }
 
+            var city = "";
+            var date = moment().format('L');
+            var temp = "";
+            var humidity = "";
+            var windspeed = "";
+            var uvindex = "";
+
             function updateCurrent() {
                 $(".city").text(city + " " + date);
                 $(".temp").text("Temperature: " + temp);
@@ -97,6 +95,8 @@
                 $(".windspeed").text("Wind Speed: " + windspeed);
                 $(".uvindex").text("UV Index: " + uvindex);
             }
+
+            var forecast = [];
 
             function retrieveWeather() {
                 $.ajax({
@@ -128,7 +128,6 @@
                     $(forecastDiv).attr("class", "fiveDay");
                     $(".forecast").append(forecastDiv);
 
-
                     var forecastDate = $("<h4>");
                     var nextIndex = parseInt([i]) + 1;
                     $(forecastDate).text(moment().add(nextIndex, 'days').format('L'));
@@ -144,7 +143,6 @@
                 }
             }
 
-            //Cities list with onclick events
             var cities = ["Boston", "New York City", "Miami", "Austin", "Los Angeles", "San Francisco", "Seattle", "Salt Lake City"];
             for (var i = 0; i < cities.length; i++) {
                 var city = cities[i];
@@ -158,7 +156,6 @@
                     retrieveCoordinates();
                 });
             }
-
         });
     </script>
 </body>
