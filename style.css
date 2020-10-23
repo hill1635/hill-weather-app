@@ -14,24 +14,26 @@ aside {
     width: 30%;
     margin-right: 20px;
     border: solid;
+    display: inline-block;
 }
 
 main {
     width: 60%;
     margin: 10px;
     border: solid;
+    display: inline-block;
 }
 
 .forecast {
-    width: 60%;
     border: solid;
 }
 
 .fiveDay {
     width: 200px;
-    display: inline;
+    display: inline-block;
     margin: 10px;
 }
+
 
 ul {
     list-style: none;

@@ -19,16 +19,17 @@
             <p>Where would you rather be right now?</p>
             <ul class="cities"></ul>
         </aside>
-        <main class="current-weather">
-            <h2 class="city"></h2>
-            <p class="temp"></p>
-            <p class="humidity"></p>
-            <p class="windspeed"></p>
-            <p class="uvindex"></p>
+        <main class="dashboard">
+            <div class="current-weather">
+                <h2 class="city"></h2>
+                <p class="temp"></p>
+                <p class="humidity"></p>
+                <p class="windspeed"></p>
+                <p class="uvindex"></p>
+            </div>
+            <div class="forecast">
+            </div>
         </main>
-        <div class="forecast">
-            <h3>5-Day Forecast:</h3>
-        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -55,9 +56,6 @@
             var lat = "";
             var long = "";
             var date = moment().format('L');
-            // //Use this below in for loop to produce five day forecast.
-            // var tomorrow = moment().add(1, 'days').format('L');
-            // console.log("Tomorrow: " + tomorrow);
             var temp = "";
             var humidity = "";
             var windspeed = "";
@@ -65,7 +63,6 @@
             var forecast = [];
 
 
-            //Button that stores search in Local Storage.
             $(search).on("click", function () {
 
                 var parent = $(this).parent();
@@ -90,8 +87,6 @@
                         weather = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&exclude=minutely,hourly,alerts&appid=" + APIkey;
                         console.log(weather);
                         retrieveWeather();
-                        // console.log(lat);
-                        // console.log(long);
                     });
             }
 
@@ -123,24 +118,29 @@
             }
 
             function renderFiveDay() {
+
+                var header = $("<h3>");
+                header.text("5 Day Forecast");
+                $(".forecast").append(header);
+
                 for (var i = 0; i < 5; i++) {
-//Keeps adding five day forecasts to existing forecast when clicking.
                     var forecastDiv = $("<div>");
                     $(forecastDiv).attr("class", "fiveDay");
                     $(".forecast").append(forecastDiv);
 
+
                     var forecastDate = $("<h4>");
-                    //For some reason starts Nov 1st
-                    $(forecastDate).text(moment().add(1 + [i], 'days').format('L'));
+                    var nextIndex = parseInt([i]) + 1;
+                    $(forecastDate).text(moment().add(nextIndex, 'days').format('L'));
                     forecastDiv.append(forecastDate);
 
                     var forecastTemp = $("<p>");
-                        var dailyInfo = forecast[i];
-                        forecastTemp.text("Temperature: " + Math.round(dailyInfo.temp.day * 9 / 5 - 459.67));
-                        forecastDiv.append(forecastTemp);
-                        var forecastHumid = $("<p>");
-                        forecastHumid.text("Humidity: " + dailyInfo.humidity);
-                        forecastDiv.append(forecastHumid);
+                    var dailyInfo = forecast[i];
+                    forecastTemp.text("Temperature: " + Math.round(dailyInfo.temp.day * 9 / 5 - 459.67));
+                    forecastDiv.append(forecastTemp);
+                    var forecastHumid = $("<p>");
+                    forecastHumid.text("Humidity: " + dailyInfo.humidity);
+                    forecastDiv.append(forecastHumid);
                 }
             }
 
