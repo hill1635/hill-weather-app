@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css"/>
     <title>How 'Bout That Weather?</title>
 </head>
 
@@ -17,7 +17,6 @@
             <aside>
                 <input type="text">
                 <button class="searchBtn">Search</button>
-                <p>Where would you rather be right now?</p>
                 <ul class="cities"></ul>
             </aside>
             <main class="dashboard">
@@ -34,6 +33,7 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script type="text/javascript">
@@ -90,9 +90,9 @@
 
             function updateCurrent() {
                 $(".city").text(city + " " + date);
-                $(".temp").text("Temperature: " + temp);
-                $(".humidity").text("Humidity: " + humidity);
-                $(".windspeed").text("Wind Speed: " + windspeed);
+                $(".temp").text("Temperature: " + temp + "°F");
+                $(".humidity").text("Humidity: " + humidity + "%");
+                $(".windspeed").text("Wind Speed: " + windspeed + " mph");
                 $(".uvindex").text("UV Index: " + uvindex);
             }
 
@@ -135,10 +135,10 @@
 
                     var forecastTemp = $("<p>");
                     var dailyInfo = forecast[i];
-                    forecastTemp.text("Temperature: " + Math.round(dailyInfo.temp.day * 9 / 5 - 459.67));
+                    forecastTemp.text("Temp: " + Math.round(dailyInfo.temp.day * 9 / 5 - 459.67) + "°F");
                     forecastDiv.append(forecastTemp);
                     var forecastHumid = $("<p>");
-                    forecastHumid.text("Humidity: " + dailyInfo.humidity);
+                    forecastHumid.text("Humidity: " + dailyInfo.humidity + "%");
                     forecastDiv.append(forecastHumid);
                 }
             }
