@@ -59,9 +59,6 @@
   }
 
   function renderFiveDay() {
-    var header = $("<h3>");
-    header.text("5 Day Forecast");
-    $(".forecast").append(header);
 
     for (var i = 0; i < 5; i++) {
       var forecastDiv = $("<div>");
