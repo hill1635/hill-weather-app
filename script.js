@@ -1,7 +1,19 @@
 $(document).ready(function () {
   var APIkey = "1eb6efea297e5d431edfcba1d2b83d6d";
+  var city = "";
+  var cities = ["Boston", "New York City", "Miami", "Austin", "Los Angeles", "San Francisco", "Seattle", "Salt Lake City",];
   var coordinates = "";
+  var date = moment().format("L");
+  var forecast = [];
+  var humidity = "";
+  var lat = "";
+  var long = "";
+  var search = $(".searchBtn");
+  var temp = "";
+  var uvindex = "";
   var weather = "";
+  var windspeed = "";
+
 
   function init() {
     coordinates = "https://api.openweathermap.org/data/2.5/weather?q=Salt%20Lake%20City&appid=" + APIkey;
@@ -10,8 +22,6 @@ $(document).ready(function () {
 
   init();
 
-  var search = $(".searchBtn");
-
   $(search).on("click", function () {
     var parent = $(this).parent();
     var searchInput = $(parent).children().eq(0);
@@ -19,9 +29,6 @@ $(document).ready(function () {
     coordinates = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIkey;
     retrieveCoordinates();
   });
-
-  var lat = "";
-  var long = "";
 
   function retrieveCoordinates() {
     $.ajax({
@@ -36,13 +43,6 @@ $(document).ready(function () {
     });
   }
 
-  var city = "";
-  var date = moment().format("L");
-  var temp = "";
-  var humidity = "";
-  var windspeed = "";
-  var uvindex = "";
-
   function updateCurrent() {
     $(".city").text(city + " " + date);
     $(".temp").text("Temperature: " + temp + "°F");
@@ -50,8 +50,6 @@ $(document).ready(function () {
     $(".windspeed").text("Wind Speed: " + windspeed + " mph");
     $(".uvindex").text("UV Index: " + uvindex);
   }
-
-  var forecast = [];
 
   function retrieveWeather() {
     $.ajax({
@@ -76,27 +74,24 @@ $(document).ready(function () {
 
     for (var i = 0; i < 5; i++) {
       var forecastDiv = $("<div>");
-      $(forecastDiv).attr("class", "fiveDay");
-      $(".forecast").append(forecastDiv);
-
       var forecastDate = $("<h4>");
       var nextIndex = parseInt([i]) + 1;
-      $(forecastDate).text(moment().add(nextIndex, "days").format("L"));
-      forecastDiv.append(forecastDate);
-
       var forecastTemp = $("<p>");
       var dailyInfo = forecast[i];
-      forecastTemp.text(
-        "Temp: " + Math.round((dailyInfo.temp.day * 9) / 5 - 459.67) + "°F"
-      );
-      forecastDiv.append(forecastTemp);
       var forecastHumid = $("<p>");
+
+      $(forecastDiv).attr("class", "fiveDay");
+      $(forecastDate).text(moment().add(nextIndex, "days").format("L"));
+      forecastTemp.text("Temp: " + Math.round((dailyInfo.temp.day * 9) / 5 - 459.67) + "°F");
       forecastHumid.text("Humidity: " + dailyInfo.humidity + "%");
+
+      $(".forecast").append(forecastDiv);
+      forecastDiv.append(forecastDate);
+      forecastDiv.append(forecastTemp);
       forecastDiv.append(forecastHumid);
     }
   }
 
-  var cities = ["Boston", "New York City", "Miami", "Austin", "Los Angeles", "San Francisco", "Seattle", "Salt Lake City",];
   for (var i = 0; i < cities.length; i++) {
     var city = cities[i];
     var listEl = $("<li>");
