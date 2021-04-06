@@ -22,14 +22,6 @@ $(document).ready(function () {
 
   init();
 
-  $(search).on("click", function () {
-    var parent = $(this).parent();
-    var searchInput = $(parent).children().eq(0);
-    var searchCity = $(searchInput).val();
-    coordinates = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIkey;
-    retrieveCoordinates();
-  });
-
   function retrieveCoordinates() {
     $.ajax({
       url: coordinates,
@@ -103,4 +95,12 @@ $(document).ready(function () {
       retrieveCoordinates();
     });
   }
+
+  $(search).on("click", function () {
+    var parent = $(this).parent();
+    var searchInput = $(parent).children().eq(0);
+    var searchCity = $(searchInput).val();
+    coordinates = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIkey;
+    retrieveCoordinates();
+  });
 });
