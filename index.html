@@ -9,30 +9,42 @@
       integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+      integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>How 'Bout That Weather?</title>
   </head>
 
   <body>
     <div class="container-fluid p-0 col-12">
-      <aside class="col-3">
-        <header>
-          <h3>Weather Dashboard</h3>
-        </header>
-        <input type="text" />
-        <button class="searchBtn">Search</button>
-        <ul class="cities"></ul>
-      </aside>
-      <main class="dashboard col-7">
-        <div class="current-weather">
-          <h2 class="city"></h2>
-          <p class="temp"></p>
-          <p class="humidity"></p>
-          <p class="windspeed"></p>
-          <p class="uvindex"></p>
-        </div>
-        <div class="forecast"></div>
-      </main>
+      <div class="row">
+        <aside class="row col-3">
+          <header class="py-4">
+            <h3>Weather Dashboard</h3>
+          </header>
+          <div class="row mx-auto">
+            <input type="text" class="col-9 mx-auto border-1" />
+            <button class="searchBtn col-2 mx-auto border-1">
+              <i class="fas fa-search-location"></i>
+            </button>
+            <ul class="cities"></ul>
+          </div>
+        </aside>
+        <main class="dashboard col-9">
+          <div class="current-weather">
+            <h2 class="city"></h2>
+            <p class="temp"></p>
+            <p class="humidity"></p>
+            <p class="windspeed"></p>
+            <p class="uvindex"></p>
+          </div>
+          <div class="forecast"></div>
+        </main>
+      </div>
     </div>
 
     <script src="https://unpkg.com/feather-icons"></script>
