@@ -3,7 +3,7 @@ $(document).ready(function () {
   var coordinates = "";
   var weather = "";
 
-  function init() {
+  var init = () => {
     coordinates = "https://api.openweathermap.org/data/2.5/weather?q=Salt%20Lake%20City&appid=" + APIkey;
     retrieveCoordinates();
   }
@@ -23,7 +23,7 @@ $(document).ready(function () {
   var lat = "";
   var long = "";
 
-  function retrieveCoordinates() {
+  var retrieveCoordinates = () => {
     $.ajax({
       url: coordinates,
       method: "GET",
@@ -43,7 +43,7 @@ $(document).ready(function () {
   var windspeed = "";
   var uvindex = "";
 
-  function updateCurrent() {
+  var updateCurrent = () => {
     $(".city").text(city + " " + date);
     $(".temp").text("Temperature: " + temp + "°F");
     $(".humidity").text("Humidity: " + humidity + "%");
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
   var forecast = [];
 
-  function retrieveWeather() {
+  var retrieveWeather = () => {
     $.ajax({
       url: weather,
       method: "GET",
@@ -69,7 +69,7 @@ $(document).ready(function () {
     });
   }
 
-  function renderFiveDay() {
+  var renderFiveDay = () => {
     var header = $("<h3>");
     header.text("5 Day Forecast");
     $(".forecast").append(header);
