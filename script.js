@@ -2,12 +2,9 @@ $(document).ready(function () {
   var APIkey = "1eb6efea297e5d431edfcba1d2b83d6d";
   var coordinates = "";
   var weather = "";
-  var cityName = "";
 
   function init() {
-    coordinates =
-      "https://api.openweathermap.org/data/2.5/weather?q=Salt%20Lake%20City&appid=" +
-      APIkey;
+    coordinates = "https://api.openweathermap.org/data/2.5/weather?q=Salt%20Lake%20City&appid=" + APIkey;
     retrieveCoordinates();
   }
 
@@ -19,11 +16,7 @@ $(document).ready(function () {
     var parent = $(this).parent();
     var searchInput = $(parent).children().eq(0);
     var searchCity = $(searchInput).val();
-    coordinates =
-      "https://api.openweathermap.org/data/2.5/weather?q=" +
-      searchCity +
-      "&appid=" +
-      APIkey;
+    coordinates = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIkey;
     retrieveCoordinates();
   });
 
@@ -35,18 +28,10 @@ $(document).ready(function () {
       url: coordinates,
       method: "GET",
     }).then(function (response) {
-      console.log(response);
       lat = response.coord.lat;
       long = response.coord.lon;
       city = response.name;
-      weather =
-        "https://api.openweathermap.org/data/2.5/onecall?lat=" +
-        lat +
-        "&lon=" +
-        long +
-        "&exclude=minutely,hourly,alerts&appid=" +
-        APIkey;
-      console.log(weather);
+      weather = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&exclude=minutely,hourly,alerts&appid=" + APIkey;
       retrieveWeather();
     });
   }
@@ -73,13 +58,11 @@ $(document).ready(function () {
       url: weather,
       method: "GET",
     }).then(function (response) {
-      console.log(response);
       temp = Math.round((response.current.temp * 9) / 5 - 459.67);
       humidity = response.current.humidity;
       windspeed = response.current.wind_speed;
       uvindex = response.current.uvi;
       forecast = response.daily;
-      console.log(forecast);
       $(".forecast").empty();
       renderFiveDay();
       updateCurrent();
@@ -113,29 +96,15 @@ $(document).ready(function () {
     }
   }
 
-  var cities = [
-    "Boston",
-    "New York City",
-    "Miami",
-    "Austin",
-    "Los Angeles",
-    "San Francisco",
-    "Seattle",
-    "Salt Lake City",
-  ];
+  var cities = ["Boston", "New York City", "Miami", "Austin", "Los Angeles", "San Francisco", "Seattle", "Salt Lake City",];
   for (var i = 0; i < cities.length; i++) {
     var city = cities[i];
     var listEl = $("<li>");
     $(listEl).text(city);
-    console.log(listEl.text());
     $(".cities").append(listEl);
 
     $(listEl).on("click", function () {
-      coordinates =
-        "https://api.openweathermap.org/data/2.5/weather?q=" +
-        $(this).text() +
-        "&appid=" +
-        APIkey;
+      coordinates = "https://api.openweathermap.org/data/2.5/weather?q=" + $(this).text() + "&appid=" + APIkey;
       retrieveCoordinates();
     });
   }
