@@ -1,5 +1,5 @@
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Ubuntu", sans-serif;
   font-size: 22px;
   margin: 0px;
   border-radius: 2px;
@@ -20,7 +20,6 @@ aside {
 }
 
 input {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   border-radius: 20px;
 }
 
@@ -43,8 +42,6 @@ main {
 
 .forecast {
   font-size: 20px;
-  border-top: solid;
-  border-color: gray;
 }
 
 .fiveDay {
@@ -53,11 +50,13 @@ main {
   margin-top: 10px;
   margin-right: 25px;
   color: white;
-  background-color: rgb(50, 92, 152);
+  background-color: rgb(72, 169, 238);
   text-align: center;
   border: solid;
   border-color: gray;
   border-radius: 6px;
+  padding: 10px 5px 10px 5px;
+  border-width: 1px;
 }
 
 ul {

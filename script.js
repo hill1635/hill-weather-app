@@ -65,7 +65,7 @@
 
     for (var i = 0; i < 5; i++) {
       var forecastDiv = $("<div>");
-      var forecastDate = $("<h4>");
+      var forecastDate = $("<p>");
       var nextIndex = parseInt([i]) + 1;
       var forecastTemp = $("<p>");
       var dailyInfo = forecast[i];
