@@ -1,4 +1,3 @@
-$(document).ready(function () {
   var APIkey = "1eb6efea297e5d431edfcba1d2b83d6d";
   var city = "";
   var cities = ["Boston", "New York City", "Miami", "Austin", "Los Angeles", "San Francisco", "Seattle", "Salt Lake City",];
@@ -103,4 +102,3 @@ $(document).ready(function () {
     coordinates = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIkey;
     retrieveCoordinates();
   });
-});
