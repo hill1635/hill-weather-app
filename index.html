@@ -1,42 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>How 'Bout That Weather?</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <header>
-            <h1>Weather Dashboard</h1>
-        </header>
-        <div class="row">
-            <aside>
-                <input type="text">
-                <button class="searchBtn">Search</button>
-                <ul class="cities"></ul>
-            </aside>
-            <main class="dashboard">
-                <div class="current-weather">
-                    <h2 class="city"></h2>
-                    <p class="temp"></p>
-                    <p class="humidity"></p>
-                    <p class="windspeed"></p>
-                    <p class="uvindex"></p>
-                </div>
-                <div class="forecast">
-                </div>
-            </main>
-        </div>
+      <header>
+        <h1>Weather Dashboard</h1>
+      </header>
+      <div class="row">
+        <aside>
+          <input type="text" />
+          <button class="searchBtn">Search</button>
+          <ul class="cities"></ul>
+        </aside>
+        <main class="dashboard">
+          <div class="current-weather">
+            <h2 class="city"></h2>
+            <p class="temp"></p>
+            <p class="humidity"></p>
+            <p class="windspeed"></p>
+            <p class="uvindex"></p>
+          </div>
+          <div class="forecast"></div>
+        </main>
+      </div>
     </div>
 
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./script.js"></script>
-</body>
-
+  </body>
 </html>
